@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>ABbiodiversity GitHub organization website</title>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="./favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+    var apiURL = 'https://api.github.com/orgs/ABbiodiversity/repos'
+    document.addEventListener('DOMContentLoaded', function () {
+        new Vue({
+            el: '#app',
+            data: {
+            org: "ABbiodiversity",
+            repos: null
+            },
+            created: function () {
+                this.fetchData()
+            },
+            methods: {
+                fetchData: function () {
+                    var xhr = new XMLHttpRequest()
+                    var self = this
+                    xhr.open('GET', apiURL)
+                    xhr.onload = function () {
+                        self.repos = JSON.parse(xhr.responseText)
+                        console.log(self.repos[0])
+                    }
+                    xhr.send()
+                }
+            }
+        })
+    })
+    </script>
+</head>
+<body class="text-gray-700 bg-white" style="font-family: 'Source Sans Pro', sans-serif">
+    <div id="app" class="container mx-auto">
+        <div class="py-10" style="background: linear-gradient(90deg, #667eea 0%, #764ba2 100%)"
+        >
+          <div class="container mx-auto px-6">
+            <h1 class="text-4xl font-bold mb-2 text-white">
+                It's our nature to code
+            </h1>
+            <h2 class="mb-8 font-bold text-white">
+                Welcome to the {{ org }} GitHub organization website! 
+            </h2>
+            <h3 class="mb-8 text-gray-200">
+            We're the Alberta Biodiversity Monitoring Institute 
+            (<a href="https://www.abmi.ca" target="_blank">ABMI</a>). 
+            We track changes in Alberta's wildlife and their habitats from border to border, 
+            and provide ongoing, relevant, scientifically credible information on Alberta's living resources.
+            </h3>
+            <h3 class="mb-8 text-gray-200">
+                And we're doing this using open source, transparent, and reproducible tools.
+            </h3>
+          </div>
+        </div>
+        <section class="container mx-auto px-6 p-6">
+
+            <div v-for="repo in repos">
+            
+                <div class="flex items-center flex-wrap mb-20">
+                  <div class="w-full">
+                    <h4 class="text-3xl text-gray-800 font-bold mb-3">
+                        {{ repo.name }}
+                    </h4>
+                    <p class="text-gray-600 mb-8">
+                        {{ repo.description }}
+                    </p>
+                    <button class="bg-blue-200 rounded-full px-4 shadow-lg">
+                        <a :href="repo.html_url" target="_blank">Visit repo</a>
+                    </button>
+                  </div>
+                </div>            
+            </div>
+        </section>    
+</div>
+</body>
+</html>
