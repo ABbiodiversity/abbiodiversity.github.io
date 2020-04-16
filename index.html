@@ -1,202 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     <title>ABbiodiversity GitHub organization website</title>
-    <link href="./tailwind.css" rel="stylesheet">
-    <link rel="shortcut icon" href="./favicon.ico">
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700" rel="stylesheet" />
-    <script src="./vue.js"></script>
+    <link
+      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="shortcut icon" href="./favicon.ico" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
     <style>
-        #menu-toggle:checked+#menu {
-          display: block;
-        }
-    
-        #dropdown-toggle:checked+#dropdown {
-          display: block;
-        }
-    
-        a,
-        span {
-          position: relative;
-          text-decoration: none;
-          transition: all 0.3s ease;
-        }
-    
-        a.arrow,
-        span.arrow {
-          display: flex;
-          align-items: center;
-          font-weight: 600;
-          line-height: 1.5;
-        }
-    
-        a.arrow .arrow_icon,
-        span.arrow .arrow_icon {
-          position: relative;
-          margin-left: 0.5em;
-        }
-    
-        a.arrow .arrow_icon svg,
-        span.arrow .arrow_icon svg {
-          transition: transform 0.3s 0.02s ease;
-          margin-right: 1em;
-        }
-    
-        a.arrow .arrow_icon::before,
-        span.arrow .arrow_icon::before {
-          content: "";
-          display: block;
-          position: absolute;
-          top: 50%;
-          left: 0;
-          width: 0;
-          height: 2px;
-          background: #38b2ac;
-          transform: translateY(-50%);
-          transition: width 0.3s ease;
-        }
-    
-        a.arrow:hover .arrow_icon::before,
-        span.arrow:hover .arrow_icon::before {
-          width: 1em;
-        }
-    
-        a.arrow:hover .arrow_icon svg,
-        span.arrow:hover .arrow_icon svg {
-          transform: translateX(0.75em);
-        }
-    
-        /* .cover {
+      #menu-toggle:checked + #menu {
+        display: block;
+      }
+      #dropdown-toggle:checked + #dropdown {
+        display: block;
+      }
+      a,
+      span {
+        position: relative;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+      a.arrow,
+      span.arrow {
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        line-height: 1.5;
+      }
+      a.arrow .arrow_icon,
+      span.arrow .arrow_icon {
+        position: relative;
+        margin-left: 0.5em;
+      }
+      a.arrow .arrow_icon svg,
+      span.arrow .arrow_icon svg {
+        transition: transform 0.3s 0.02s ease;
+        margin-right: 1em;
+      }
+      a.arrow .arrow_icon::before,
+      span.arrow .arrow_icon::before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: #38b2ac;
+        transform: translateY(-50%);
+        transition: width 0.3s ease;
+      }
+      a.arrow:hover .arrow_icon::before,
+      span.arrow:hover .arrow_icon::before {
+        width: 1em;
+      }
+      a.arrow:hover .arrow_icon svg,
+      span.arrow:hover .arrow_icon svg {
+        transform: translateX(0.75em);
+      }
+      /* .cover {
           border-bottom-right-radius: 128px;
         } */
-    
-        .bg-blue-teal-gradient {
-          background: rgb(49, 130, 206);
-          background: linear-gradient(90deg, rgba(49, 130, 206, 1) 0%, rgba(56, 178, 172, 1) 100%);
-        }
-    
-        /* @media (min-width: 1024px) {
-          .cover {
-            border-bottom-right-radius: 256px;
-          }
-        } */
-      </style>
-        <script>
-    document.addEventListener('DOMContentLoaded', function () {
+      .bg-blue-teal-gradient {
+        background: rgb(49, 130, 206);
+        background: linear-gradient(
+          90deg,
+          rgba(49, 130, 206, 1) 0%,
+          rgba(56, 178, 172, 1) 100%
+        );
+      }
+    </style>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
         new Vue({
-            el: '#app',
-            data: {
+          el: "#app",
+          data: {
             org: "ABbiodiversity",
-            repos: null
+            repos: null,
+          },
+          created: function () {
+            this.fetchData();
+          },
+          methods: {
+            fetchData: function () {
+              var xhr = new XMLHttpRequest();
+              var self = this;
+              xhr.open(
+                "GET",
+                "https://api.github.com/orgs/" + self.org + "/repos"
+              );
+              xhr.onload = function () {
+                self.repos = JSON.parse(xhr.responseText);
+                console.log(self.repos[0]);
+              };
+              xhr.send();
             },
-            created: function () {
-                this.fetchData()
-            },
-            methods: {
-                fetchData: function () {
-                    var xhr = new XMLHttpRequest()
-                    var self = this
-                    xhr.open('GET', 'https://api.github.com/orgs/' + self.org + '/repos')
-                    xhr.onload = function () {
-                        self.repos = JSON.parse(xhr.responseText)
-                        console.log(self.repos[0])
-                    }
-                    xhr.send()
-                }
-            }
-        })
-    })
+          },
+        });
+      });
     </script>
-</head>
-<!-- Tailwindcss template by https://github.com/getabstractui/dentalpro -->
-<body class="antialiased bg-white font-sans text-gray-900">
+  </head>
+  <body class="antialiased bg-white font-sans text-gray-900">
     <div id="app">
-        <main class="w-full">
-    <!-- start header -->
-    <header class="absolute top-0 left-0 w-full z-50 px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64">
-        <div class="hidden md:flex justify-between items-center py-2 border-b text-sm py-3"
-          style="border-color: rgba(255,255,255,.25)">
-          <div class="">
-            <ul class="flex text-white">
-              <li>
-                <div class="flex items-center">  
-                  <span class="ml-2">Alberta Biodiversity Monitoring Institute &ndash; GitHub organization website</span>
-                </div>
-              </li>
-            </ul>
-          </div>  
-        </div>
-        <div class="flex flex-wrap items-center justify-between py-6">
-          <div class="w-1/2 md:w-auto">
-            <a href="index.html" class="text-white font-bold text-2xl">
-              {{ org }}
-            </a>
-          </div>
-          <div class="hidden md:block w-full md:w-auto" id="menu">
-            <nav
-              class="w-full bg-white md:bg-transparent rounded shadow-lg px-6 py-4 mt-4 text-center md:p-0 md:mt-0 md:shadow-none">
-              <ul class="md:flex items-center">
-                <li class="md:ml-6 mt-3 md:mt-0">
-                  <a class="inline-block font-semibold px-4 py-2 text-white bg-blue-600 md:bg-transparent md:text-white border border-white rounded"
-                    href="https://www.abmi.ca/" target="_blank">ABMI</a>
+      <main class="w-full">
+        <header
+          class="absolute top-0 left-0 w-full z-50 px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64"
+        >
+          <div
+            class="hidden md:flex justify-between items-center py-2 border-b text-sm py-3"
+            style="border-color: rgba(255, 255, 255, 0.25);"
+          >
+            <div class="">
+              <ul class="flex text-white">
+                <li>
+                  <div class="flex items-center">
+                    <span class="ml-2"
+                      >Alberta Biodiversity Monitoring Institute &ndash; GitHub
+                      organization website</span
+                    >
+                  </div>
                 </li>
               </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
-      <!-- end header -->
-      <!-- start hero -->
-      <div class="bg-gray-100">
-        <section class="cover bg-blue-teal-gradient relative bg-blue-600 px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 overflow-hidden py-48 flex
-        items-center min-h-screen">
-          <div class="h-full absolute top-0 left-0 z-0">
-            <img src="https://source.unsplash.com/collection/9470218/1920x1080" alt="" class="w-full h-full object-cover opacity-25">
-          </div>
-  
-          <div class="lg:w-3/4 xl:w-3/4 relative z-10 h-100 lg:mt-16">
-            <div>
-              <h1 class="text-white text-4xl md:text-5xl xl:text-6xl font-bold leading-tight">
-                It's our nature to code
-              </h1>
-              <p class="text-blue-200 text-xl md:text-2xl leading-snug mt-4">
-                We're the Alberta Biodiversity Monitoring Institute (ABMI). 
-                We track changes in Alberta's wildlife and their habitats from border to border, 
-                and provide ongoing, relevant, scientifically credible information on Alberta's living resources.
-              </p>
-              <p class="text-white text-xl md:text-2xl leading-snug mt-4">
-              And we're doing this using open source, transparent, and reproducible tools.
-              </p>
             </div>
           </div>
-        </section>
-      </div>
-      <!-- end hero -->
-      <!-- start listing -->
-      <section class="relative px-4 py-8 sm:px-4 lg:px-8 xl:px-20 2xl:px-32 lg:py-18">
-  
-        <div class="flex flex-col lg:-mx-8">
-            
-            <div v-for="repo in repos">
+          <div class="flex flex-wrap items-center justify-between py-6">
+            <div class="w-1/2 md:w-auto">
+              <a href="index.html" class="text-white font-bold text-2xl">
+                {{ org }}
+              </a>
+            </div>
+            <div class="hidden md:block w-full md:w-auto" id="menu">
+              <nav
+                class="w-full bg-white md:bg-transparent rounded shadow-lg px-6 py-4 mt-4 text-center md:p-0 md:mt-0 md:shadow-none"
+              >
+                <ul class="md:flex items-center">
+                  <li class="md:ml-6 mt-3 md:mt-0">
+                    <a
+                      class="inline-block font-semibold px-4 py-2 text-white bg-blue-600 md:bg-transparent md:text-white border border-white rounded"
+                      href="https://www.abmi.ca/"
+                      target="_blank"
+                      >ABMI</a
+                    >
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </header>
+        <div class="bg-gray-100">
+          <section
+            class="cover bg-blue-teal-gradient relative bg-blue-600 px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 overflow-hidden py-48 flex items-center min-h-screen"
+          >
+            <div class="h-full absolute top-0 left-0 z-0">
+              <img
+                src="https://source.unsplash.com/collection/9470218/1920x1080"
+                alt=""
+                class="w-full h-full object-cover opacity-25"
+              />
+            </div>
 
-            <div class="w-2/3 ml-auto mr-auto p-4">
-              
-                <a :href="repo.html_url" target="_blank">
-                <div class="bg-white rounded-lg border border-gray-300 p-8 hover:bg-blue-200">
-                  <h4 class="text-3xl leading-tight font-bold mt-4">{{ repo.name }}</h4>
+            <div class="lg:w-3/4 xl:w-3/4 relative z-10 h-100 lg:mt-16">
+              <div>
+                <h1
+                  class="text-white text-4xl md:text-5xl xl:text-6xl font-bold leading-tight"
+                >
+                  It's our nature to code
+                </h1>
+                <p class="text-blue-200 text-xl md:text-2xl leading-snug mt-4">
+                  We're the Alberta Biodiversity Monitoring Institute (ABMI). We
+                  track changes in Alberta's wildlife and their habitats from
+                  border to border, and provide ongoing, relevant,
+                  scientifically credible information on Alberta's living
+                  resources.
+                </p>
+                <p class="text-white text-xl md:text-2xl leading-snug mt-4">
+                  And we're doing this using open source, transparent, and
+                  reproducible tools.
+                </p>
+              </div>
+            </div>
+          </section>
+        </div>
+        <section class="relative">
+          <div class="flex flex-wrap">
+            <div v-for="repo in repos" class="w-1/2 p-2">
+              <a :href="repo.html_url" target="_blank">
+                <div class="bg-white p-8 hover:bg-blue-200">
+                  <h4 class="text-3xl leading-tight font-bold mt-4">
+                    {{ repo.name }}
+                  </h4>
                   <p class="mt-2 leading-relaxed">{{ repo.description }}</p>
                 </div>
-                </a>
-            </div>
+              </a>
             </div>
           </div>
-
         </section>
-      <!-- end listing -->
-  
-    </main>
-</div>
-</body>
+      </main>
+    </div>
+  </body>
 </html>
