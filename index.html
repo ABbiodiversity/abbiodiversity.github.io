@@ -7,6 +7,21 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <title>ABbiodiversity GitHub organization website</title>
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://pbs.twimg.com/profile_images/525719698847965185/byUe_WLw_400x400.jpeg"
+    />
+    <meta property="og:image:width" content="400" />
+    <meta property="og:image:height" content="300" />
+    <meta property="og:url" content="https://abbiodiversity.github.io/" />
+    <meta name="twitter:site" content="@abbiodiversity" />
+    <meta name="twitter:title" content="ABbiodiversity" />
+    <meta
+      name="twitter:description"
+      content="ABMI GitHub organization website"
+    />
+    <meta name="twitter:url" content="https://abbiodiversity.github.io/" />
     <link
       href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
       rel="stylesheet"
@@ -18,59 +33,6 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
     <style>
-      #menu-toggle:checked + #menu {
-        display: block;
-      }
-      #dropdown-toggle:checked + #dropdown {
-        display: block;
-      }
-      a,
-      span {
-        position: relative;
-        text-decoration: none;
-        transition: all 0.3s ease;
-      }
-      a.arrow,
-      span.arrow {
-        display: flex;
-        align-items: center;
-        font-weight: 600;
-        line-height: 1.5;
-      }
-      a.arrow .arrow_icon,
-      span.arrow .arrow_icon {
-        position: relative;
-        margin-left: 0.5em;
-      }
-      a.arrow .arrow_icon svg,
-      span.arrow .arrow_icon svg {
-        transition: transform 0.3s 0.02s ease;
-        margin-right: 1em;
-      }
-      a.arrow .arrow_icon::before,
-      span.arrow .arrow_icon::before {
-        content: "";
-        display: block;
-        position: absolute;
-        top: 50%;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background: #38b2ac;
-        transform: translateY(-50%);
-        transition: width 0.3s ease;
-      }
-      a.arrow:hover .arrow_icon::before,
-      span.arrow:hover .arrow_icon::before {
-        width: 1em;
-      }
-      a.arrow:hover .arrow_icon svg,
-      span.arrow:hover .arrow_icon svg {
-        transform: translateX(0.75em);
-      }
-      /* .cover {
-          border-bottom-right-radius: 128px;
-        } */
       .bg-blue-teal-gradient {
         background: rgb(49, 130, 206);
         background: linear-gradient(
